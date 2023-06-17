@@ -1,0 +1,14 @@
+
+
+html{
+    font-family: "Poppins", sans-serif;
+    background-color: rgb(225, 234, 239);
+}
+
+.card{
+    max-width: 30px;
+    border: solid 1px;
+    margin: 20px;
+    padding: 10px;
+    background-color: antiquewhite;
+}
