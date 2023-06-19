@@ -11,7 +11,7 @@ getCategories()
 
 // Event Listenerd
 cuisineSelect.addEventListener("change", getRecipesByCuisine)
-//categorySelect.addEventListener("change", getRecipesByCategory)
+categorySelect.addEventListener("change", getRecipesByCategory)
 
 // Dropdown Functions
 function getCuisines() {
@@ -52,6 +52,15 @@ function getRecipesByCuisine(e) {
     const cuisine = e.target.value
 
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?a=${cuisine}`)
+        .then(r => r.json())
+        .then(recipes => renderAllRecipes(recipes.meals))
+        .catch(error => alert(error))
+}
+
+function getRecipesByCategory(e) {
+    const category = e.target.value
+
+    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
         .then(r => r.json())
         .then(recipes => renderAllRecipes(recipes.meals))
         .catch(error => alert(error))
