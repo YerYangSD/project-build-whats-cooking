@@ -12,7 +12,7 @@ getCategories()
 // Event Listenerd
 cuisineSelect.addEventListener("change", getRecipesByCuisine)
 categorySelect.addEventListener("change", getRecipesByCategory)
-
+categorySelect.addEventListener("click", getRecipesByCategory)
 // Dropdown Functions
 function getCuisines() {
     fetch("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
@@ -80,10 +80,10 @@ function renderRecipeCard(recipe) {
         strMeal: recipeName,
         strMealThumb: recipeImage
     } = recipe
-    console.log(recipe)
+
     const cardDiv = document.createElement("div")
     cardDiv.classList.add("card")
-    //add event listener to card
+    cardDiv.addEventListener("click", e => getRecipeDetails(e, recipeId))
 
     const image = document.createElement("img")
     image.src = recipeImage
@@ -95,6 +95,9 @@ function renderRecipeCard(recipe) {
     recipeContainer.append(cardDiv)
 }
 
-// function getRecipesByCategory(e) {
-//     console.log(e)
-// }
+function getRecipeDetails(e, recipeId) {
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeId}`)
+        .then(r => r.json())
+        .then(recipes => console.log(recipes.meals[0]))
+        .catch(error => alert(error))
+}
